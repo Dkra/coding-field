@@ -1,32 +1,23 @@
-// Singleton Pattern //
+function delayAndSay (time, msg) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(function () {
+      // value pass in to resolve is "Value return in feature"
+      resolve(msg);
+    }, time);
+  });
+}
 
-// restricts instantiation of a class to a single object.
-
-var Singleton = (function() {
-
-  var instance;
-
-  function Init (config) {
-    this.name = config.name || "Roger";
-    this.sayHi = function () {
-      console.log(`Hi, I'm #{this.name}`);
-    }
-  }
-
-  return {
-    getInstance: function (config) {
-      if ( !instance ) {
-        instance = new Init(config);
-      }
-
-      return instance;
-    }
-  }
-
-})();
-
-var a = Singleton.getInstance({name: 'Kobe'});
-var b = Singleton.getInstance();
-console.log(a);
-console.log(b);
-console.log(a === b);
+delayAndSay(1000,'hey')
+  .then(function(data) {
+    console.log(data);
+    return delayAndSay(2000,'man');
+  },function(data) {
+    console.log('resovle'+data);
+  })
+  .then(function(data) {
+    console.log(data);
+    return delayAndSay(2000,'yo');
+  })
+  .then(function(data) {
+    console.log(data);
+  });
