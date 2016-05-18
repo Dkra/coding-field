@@ -1,22 +1,19 @@
-html
-  background: scale-lightness(#0b353f, -30%)
+html, body
+  height: 400px
+  overflow: hidden
 
-body
-  background: grey
-  
-.container
-  width: 1280px
-  margin: 0 auto
-  overflow: auto
-  .title
-    text-align: center
-    color: #FFA500
-  .title__link
-    display: inline-block
-    color: white
-    &:hover
-      text-decoration: none
 
-.chart-demo
-  float: left
-  width: 640px
+#wrap
+  &::after
+    content: ''
+    display: table
+    clear: both
+  .item
+    visibility: hidden
+    float: left
+    width: 60px
+    height: 60px
+    border: 1px solid green
+    font-size: 40px
+    &:nth-child(4n+1)
+      clear: left

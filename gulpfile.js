@@ -7,6 +7,8 @@ var source = require('vinyl-source-stream');
 var browserSync = require('browser-sync').create();
 var browserify = require('browserify');
 var babelify = require('babelify');
+var watchify = require('watchify');
+var assign = require('lodash.assign');
 /*****************************
   * Tasks
 
@@ -82,10 +84,10 @@ gulp.task('css', function() {
   ];
 
   return gulp.src(path.dest.css)
-    // .pipe($.sourcemaps.init({loadMaps: true}))
+    .pipe($.sourcemaps.init({loadMaps: true}))
     .pipe($.autoprefixer({browsers: ['last 2 version']}))
     .pipe($.postcss(processors))
-    // .pipe($.sourcemaps.write())
+    .pipe($.sourcemaps.write())
     // .pipe($.uglify())
     .pipe(gulp.dest(path.dest.css));
 });
@@ -93,22 +95,23 @@ gulp.task('css', function() {
 /*-----------------------------
   * Js
 -----------------------------*/
+var customOpts = {
+  entries: ['./js/become-better.js'],
+  debug: true,
+};
+var opts = assign({}, watchify.args, customOpts);
+var b = watchify(browserify(opts));
+b.transform(["babelify",{presets: ["es2015"]}]);
+gulp.task('js', bundle);
+b.on('update', bundle); // on any dep update, runs the bundler
+b.on('log', gutil.log); // output build logs to terminal
 
-gulp.task('js', function() {
-  return browserify({
-                entries: ['./js/become-better.js'],
-                debug: true
-            })
-            .transform(["babelify",{presets: ["es2015"]}])
-            .bundle()
-            .on('error', function(e) {
-              gutil.log(e);
-            })
-            .pipe(source('bundle.js'))
-            .pipe(gulp.dest('./'))
-            .pipe(browserSync.stream());
-});
-
+function bundle() {
+  return b.bundle()
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('./'));
+}
 /*-----------------------------
   * Images
 -----------------------------*/
@@ -143,7 +146,7 @@ gulp.task('watch', function() {
 
 gulp.task('sync', ['watch'],function() {
   // Reload List
-  const reloadList = ['./*.css', path.dest.html, path.dest.js];
+  const reloadList = ['./*.css', path.dest.html, 'bundle.js'];
 
   browserSync.init({
     server: {
@@ -154,7 +157,5 @@ gulp.task('sync', ['watch'],function() {
 
   gulp.watch(reloadList).on('change', browserSync.reload);
 });
-
-
 
 gulp.task('default', ['sync']);
