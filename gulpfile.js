@@ -34,7 +34,7 @@ var path = {
     path: 'build/',
     html: './*.html',
     css: './',
-    js: './'
+    js: './*.js'
   }
 };
 
@@ -97,8 +97,6 @@ gulp.task('css', function() {
 gulp.task('js', function() {
   return browserify({
                 entries: ['./js/become-better.js'],
-                // transform: [babelify],
-                // extension: ['jsx', 'js', 'es6', ''],
                 debug: true
             })
             .transform(["babelify",{presets: ["es2015"]}])
@@ -107,13 +105,6 @@ gulp.task('js', function() {
               gutil.log(e);
             })
             .pipe(source('bundle.js'))
-            // .pipe(buffer())
-            .pipe($.sourcemaps.init({loadMaps: true}))
-            .pipe($.sourcemaps.write('./maps'))
-            // .pipe($.using({
-            //   prefix: 'bundle:js',
-            //   color: 'yellow'
-            // }))
             .pipe(gulp.dest('./'))
             .pipe(browserSync.stream());
 });
