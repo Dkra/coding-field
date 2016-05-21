@@ -1,5 +1,48 @@
 var RamdomImage = (function() {
 
+	function magicHouse($el) {
+		var $startEl, $endEl, tempText;
+
+		// Event: Drag
+		$el.draggable = true;
+
+		$el.addEventListener("dragend", function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			console.log(event);
+			console.log(event.clientX, event.clientY);
+			$startEl = event.target;
+			$endEl = document.elementFromPoint(event.clientX+25, event.clientY-25);
+			console.log($endEl);
+
+			tempText = $endEl.innerHTML;
+			$endEl.innerHTML = $startEl.innerHTML;
+			$startEl.innerHTML = tempText;
+
+		})
+
+		// Event: Touch
+		// $el.addEventListener("touchstart", function() {
+		// 	$startEl = this;
+		// });
+
+		$el.addEventListener("touchend", function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			var changedTouch = event.changedTouches[0];
+
+			$startEl = event.target;
+			$endEl = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
+
+			tempText = $endEl.innerHTML;
+			$endEl.innerHTML = $startEl.innerHTML;
+			$startEl.innerHTML = tempText;
+		});
+
+	}
+
+
 	function start () {
 		var $elems = Array.from(document.querySelectorAll('.item')),
 				$images = ['鼠','牛','虎','兔','龍','蛇','馬','羊', '猴','雞','狗','豬'],
@@ -21,25 +64,10 @@ var RamdomImage = (function() {
 				$elems[elemIndex[posRandom]].innerHTML = $images[imgIndex[imgRandom]];
 
 				setTimeout(function(index) {
-					var $startEl, $endEl, tempText;
 
 					$elems[index].style.visibility = 'visible';
-					// touch
-					$elems[index].addEventListener("touchstart", function() {
-						$startEl = this;
-					});
+					magicHouse($elems[index]);
 
-					$elems[index].addEventListener("touchend", function(event) {
-						event.preventDefault();
-				    event.stopPropagation();
-
-						var changedTouch = event.changedTouches[0];
-						$endEl = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
-
-						tempText = $endEl.innerHTML;
-						$endEl.innerHTML = $startEl.innerHTML;
-						$startEl.innerHTML = tempText;
-					});
 
 				}.bind(null, targetIndex), 200*i);
 
