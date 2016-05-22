@@ -8,7 +8,7 @@ export default class AddButton extends Component {
 
   render() {
     return (
-        <button onClick={()=> this.props.increase()}> Addasd </button>
+        <button onClick={()=> this.props.increase()}> Add </button>
     )
   }
 }

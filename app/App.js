@@ -1,5 +1,3 @@
-// var index = require('./components/test.html');
-
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import style from './components/style.sass'
@@ -10,7 +8,7 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      step: 3,
+      step: 4,
       counter: 0
     }
   }
