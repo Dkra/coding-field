@@ -9,7 +9,7 @@ module.exports = {
   ],
 
   output: {
-    path: __dirname,
+    path: '/dist',
     // production usage
     // publicPath: 'http://mycdn.com/',
     filename: "bundle.js"
@@ -17,11 +17,11 @@ module.exports = {
 
   module: {
     loaders: [
+      { test:/\.html$/, loader: 'html-loader' },
       { test:/\.json$/, loader: "json" },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.png$/, loader: "url-loader?limit=100000" },
-      { test: /\.jpg$/, loader: "file-loader" },
       { test: /\.sass$/, loaders: ["style", "css", "sass"] },
+      // { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i, loader: 'url-loader?limit=10000' },
       {
         // Do not transform vendor's CSS with CSS-modules
         // The point is that they remain in global scope.
@@ -29,24 +29,14 @@ module.exports = {
         // they will be a part of our compilation either way.
         // So, no need for ExtractTextPlugin here.
         test: /\.css$/,
-        include: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
+        include: /node_modules/,
       },
-      // {
-      //   test: /\.js$/,
-      //   loaders: ['react-hot', 'jsx'], // <-- changed line
-      //   exclude: /node_modules/
-      // },
       {
         test: /\.js?$/,
         loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react'],
         exclude: /node_modules/,
-        // query: {
-        //   cacheDirectory: true,
-        //   presets: ['react', 'es2015']
-        // }
       },
-      { test:/\.html$/, loader: 'html-loader' }
     ]
   },
   resolve: {
