@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators, createStore, applyMiddleware } from 'redux'
 import { fetchWeather } from '../actions/index'
-import reducers from './reducers'
+import reducers from '../reducers'
+import ReduxPromise from 'redux-promise'
 
 class SearchBar extends Component {
   constructor(props) {
@@ -20,16 +21,17 @@ class SearchBar extends Component {
   }
 
   componentWillMount() {
-    console.log(this._form)
-    fetchWeather('maioli')
+    // after connect with mapDispatchToProps can just use
+    this.props.fetchWeather('maioli');
   }
+
 
   onFormSubmit(evt) {
     evt.preventDefault()
-    console.log('submit!!');
 
     // fetch weather data
     this.props.fetchWeather(this.state.term)
+
     this.setState({term: ''})
   }
 
@@ -54,5 +56,6 @@ function mapDispatchToProps (dispatch) {
   console.log('just before return bindActionCreators');
   return bindActionCreators({ fetchWeather }, dispatch)
 }
+
 
 export default connect(null, mapDispatchToProps)(SearchBar)
