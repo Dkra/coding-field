@@ -9,19 +9,19 @@ const Todo = (props) => {
 
   function removeTodo (e, index) {
     e.stopPropagation()
-    console.log(props.removeTodo);
     props.removeTodo(index)
   }
 
   function isShow () {
+
     const currentFilter = props.currentFilter
     let showTodo = null
 
     if( currentFilter === "Done" && props.todo.visibilityFilter !== "Done" ) {
       showTodo = false
-    }else if( currentFilter === "Todo" && props.todo.visibilityFilter === "Done" ) {
+    } else if ( currentFilter === "Todo" && props.todo.visibilityFilter === "Done" ) {
       showTodo = false
-    }else{
+    } else {
       showTodo = true
     }
 
@@ -34,7 +34,6 @@ const Todo = (props) => {
     return `${classes} todoItem`
   }
 
-  // <Icon name="pencil" size="1x" />
   return (
     <p
       style={{ display: isShow() ? "block" : "none"}}
@@ -44,8 +43,8 @@ const Todo = (props) => {
         <Icon name="trash-o" size="lg" onClick={ (e) => removeTodo(e, props.idx) }/>
       </span>
     </p>
-
   )
+
 }
 
 

@@ -31,14 +31,8 @@ export default class App extends Component {
     console.log('this.state.todos:', this.state.todos);
   }
 
-  removeLastTodo () {
-    let todos = [
-      ...this.state.todos
-    ]
-
-    todos.pop()
-
-    this.setState({ todos })
+  removeAll () {
+    this.setState({ todos: [] })
   }
 
   removeSpecificTodo (index) {
@@ -65,10 +59,10 @@ export default class App extends Component {
         <div className="tool-list">
           <input type="text" className="todoText" val={ this.state.value } onChange={(e) => this.setState({value: e.target.value})}></input>
           <button className="btn btn-default" onClick={ this.addTodo.bind(this) }> Add </button>
-          <button className="btn btn-default" onClick={ this.removeLastTodo.bind(this) }> Remove Last</button>
+          <button className="btn btn-default" onClick={ this.removeAll.bind(this) }> Remove All</button>
           <a className={this.state.filter === 'All' ? 'active filter-option' : 'filter-option'} onClick={ () => this.setState({filter: 'All'}) } >All</a>
-          <a className={this.state.filter === 'Done' ? 'active filter-option' : 'filter-option'} onClick={ () => this.setState({filter: 'Done'}) } >Done</a>
           <a className={this.state.filter === 'Todo' ? 'active filter-option' : 'filter-option'} onClick={ () => this.setState({filter: 'Todo'}) } >Todo</a>
+          <a className={this.state.filter === 'Done' ? 'active filter-option' : 'filter-option'} onClick={ () => this.setState({filter: 'Done'}) } >Done</a>
         </div>
 
         <TodoList todos={ this.state.todos } filter={ this.state.filter } toggleTodoFn={ this.toggleTodo.bind(this) } removeTodoFn={ this.removeSpecificTodo.bind(this) }/>
