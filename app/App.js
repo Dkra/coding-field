@@ -1,74 +1,77 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import style from './components/style.sass'
-import AddButton from './components/add_button'
-import RemoveButton from './components/remove_button'
+import TodoList from './components/todoList'
+
+// import { StyleRoot } from 'radium'
+// import SweetAlert from 'react-bootstrap-sweetalert'
+
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      step: 1,
-      counter: 0,
-      digitColor: 'red',
-      rotateAngle: 0,
+      value: '',
+      todos: [],
+      filter: 'All'
     }
   }
 
-  componentDidMount() {
-    setInterval(() => {
-      let color = this.state.counter%2 ? 'color-1' : 'color-2'
-      let rotateAngle = this.state.rotateAngle + 6
+  addTodo () {
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          text: this.state.value,
+          isComplete: false,
+          visibilityFilter: 'Todo'
+        }
+      ]
+    })
 
-      this.setState({
-        counter: this.state.counter + 1,
-        digitColor: color,
-        rotateAngle: rotateAngle
-      })
-    },1000)
+    console.log('this.state.todos:', this.state.todos);
   }
 
-  increase(e) {
-    const d = this.state.counter + this.state.step
-    let color = this.state.counter%2 ? 'color-1' : 'color-2'
+  removeLastTodo () {
+    let todos = [
+      ...this.state.todos
+    ]
+
+    todos.pop()
+
+    this.setState({ todos })
+  }
+
+  removeSpecificTodo (index) {
+    const todos = [ ...this.state.todos ]
+    todos.splice(index, 1)
+    this.setState({todos})
+  }
+
+  toggleTodo(index) {
+    let Todos = [ ...this.state.todos ]
+    Todos[index].isComplete = !Todos[index].isComplete
+    Todos[index].visibilityFilter = Todos[index].isComplete ? 'Done' : 'Todo'
+
     this.setState({
-      counter: d,
-      digitColor: color,
+      todos: Todos
     })
   }
-
-  decrease() {
-    const d = this.state.counter - this.state.step
-    let color = this.state.counter%2 ? 'color-1' : 'color-2'
-    this.setState({
-      counter: d,
-      digitColor: color,
-    })
-  }
-
-  h1s() {
-    let arr = []
-    let i = 1;
-    while( i > 0 ) {
-      let h1 = <h1 className={`txt-${this.state.digitColor}`}
-                   key={i}
-                   style={{transform: `rotate(${this.state.rotateAngle}deg)`}} >{this.state.counter}</h1>
-      arr.push((() => h1)())
-      i--
-    }
-    return arr
-  }
-
 
   render() {
-    // const h1s = [1,2,3].map(() => {
-    //   return <h1 className={`txt-${this.state.digitColor}`} style={{transform: `rotate(${this.state.rotateAngle}deg)`}}>{this.state.counter}</h1>
-    // })
     return (
       <div>
-        <AddButton increase={() => this.increase() } />
-        <RemoveButton decrease={() => this.decrease() } />
-        <hr />
-        {this.h1s()}
+        <h1>My Todo App [ React ]</h1>
+
+        <div className="tool-list">
+          <input type="text" className="todoText" val={ this.state.value } onChange={(e) => this.setState({value: e.target.value})}></input>
+          <button className="btn btn-default" onClick={ this.addTodo.bind(this) }> Add </button>
+          <button className="btn btn-default" onClick={ this.removeLastTodo.bind(this) }> Remove Last</button>
+          <a className={this.state.filter === 'All' ? 'active filter-option' : 'filter-option'} onClick={ () => this.setState({filter: 'All'}) } >All</a>
+          <a className={this.state.filter === 'Done' ? 'active filter-option' : 'filter-option'} onClick={ () => this.setState({filter: 'Done'}) } >Done</a>
+          <a className={this.state.filter === 'Todo' ? 'active filter-option' : 'filter-option'} onClick={ () => this.setState({filter: 'Todo'}) } >Todo</a>
+        </div>
+
+        <TodoList todos={ this.state.todos } filter={ this.state.filter } toggleTodoFn={ this.toggleTodo.bind(this) } removeTodoFn={ this.removeSpecificTodo.bind(this) }/>
       </div>
     )
   }

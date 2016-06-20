@@ -1,5 +1,6 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -22,6 +23,14 @@ module.exports = {
       { test: /\.sass$/, loaders: ["style", "css", "sass"] },
       // { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i, loader: 'url-loader?limit=10000' },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
+      },
       {
         // Do not transform vendor's CSS with CSS-modules
         // The point is that they remain in global scope.
@@ -55,6 +64,7 @@ module.exports = {
     // }),
     // new HtmlWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('bundle.css')
   ],
 
   devtool: 'source-map',
