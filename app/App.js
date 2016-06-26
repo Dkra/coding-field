@@ -65,6 +65,38 @@ export default class App extends Component {
     })
   }
 
+  // https://facebook.github.io/react/docs/component-specs.html
+  // Mounting
+  componentWillMount() {
+    // alert('before add new todo!')
+  }
+
+  componentDidMount() {
+    this._mainInput.focus()
+  }
+
+  // Updating
+  shouldComponentUpdate() {
+    return true
+  }
+
+  componentWillReceiveProps() {
+
+  }
+
+  componentWillUpdate() {
+
+  }
+
+  componentDidUpdate() {
+
+  }
+
+  // Unmounting
+  componentWillUnmount() {
+
+  }
+
   render() {
     return (
       <form onSubmit={ (e) => this._handleSubmit(e) }>
