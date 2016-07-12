@@ -152,7 +152,7 @@ gulp.task('sync', ['watch'],function() {
     server: {
       baseDir: "./"
     },
-    port: 9999
+    port: 8888
   });
 
   gulp.watch(reloadList).on('change', browserSync.reload);
