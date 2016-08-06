@@ -3,7 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:9999', // WebpackDevServer host and port
+    'webpack-dev-server/client?http://0.0.0.0:8888', // WebpackDevServer host and port
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './app/App.js',
   ],

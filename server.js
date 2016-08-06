@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
+var port = 8888;
 
 new WebpackDevServer(webpack(config), {
   // publicPath: '/public/',
@@ -9,10 +10,10 @@ new WebpackDevServer(webpack(config), {
   stats: {
     colors: true
   }
-}).listen(9999, 'localhost', function (err, result) {
+}).listen(port, 'localhost', function (err, result) {
   if (err) {
     return console.log(err);
   }
 
-  console.log('Webpack with React HMR is listen at http://localhost:9999/');
+  console.log('Webpack with React HMR is listen at http://localhost:'+ port +'/');
 });
