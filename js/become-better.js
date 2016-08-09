@@ -1,23 +1,4 @@
-// ES5
-// function Stack() {
-//   this.items = [];
-// }
-//
-// Stack.prototype = {
-//   top: function() {
-//       return this.items[0];
-//   },
-//   push: function(item) {
-//     return this.items.unshift(item);
-//   },
-//   pop: function() {
-//     if (this.items.length === 0) {
-//       return this.items;
-//     }
-//     this.items.shift();
-//     return this.items;
-//   }
-// }
+// Stack - LIFO
 
 // ES6
 class Stack {
@@ -41,6 +22,26 @@ class Stack {
   }
 }
 
+// ES5
+// function Stack() {
+//   this.items = [];
+// }
+//
+// Stack.prototype = {
+//   top: function() {
+//       return this.items[0];
+//   },
+//   push: function(item) {
+//     return this.items.unshift(item);
+//   },
+//   pop: function() {
+//     if (this.items.length === 0) {
+//       return this.items;
+//     }
+//     this.items.shift();
+//     return this.items;
+//   }
+// }
 
 var s = window.s = new Stack();
 
