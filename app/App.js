@@ -8,10 +8,13 @@ export default class App extends Component {
     this.state = {
       // rotateAngle: 0,
     }
+    console.log('**********************************************************');
+    becomeBetter()
+    console.log('**********************************************************');
   }
 
   render() {
-    becomeBetter()
+
     return (
       <div></div>
     )
