@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
+const DashboardPlugin = require('webpack-dashboard/plugin');
 module.exports = {
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:9999', // WebpackDevServer host and port
@@ -63,6 +63,7 @@ module.exports = {
     //   inject: true
     // }),
     // new HtmlWebpackPlugin(),
+    new DashboardPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('bundle.css')
   ],
