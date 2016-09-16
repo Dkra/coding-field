@@ -4,7 +4,7 @@ var config = require('./webpack.config');
 
 new WebpackDevServer(webpack(config), {
   // publicPath: '/public/',
-  hot: true,
+  hot: false,
   historyApiFallback: true,
   stats: {
     colors: true
