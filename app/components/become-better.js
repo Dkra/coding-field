@@ -19,9 +19,9 @@ export default function() {
     class MacbookClass {
       constructor(shop, owner) {
         this.owner = owner
+        this.shop = shop
         this.model = '2018 late'
         this.brand = 'Apple Inc.'
-        this.shop = shop
       }
     }
 
