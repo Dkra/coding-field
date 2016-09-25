@@ -106,7 +106,6 @@ export default function() {
         return rowArr.every((target, colIndex) => {
           if (target[0] === row && target[1] === col) {
             targetAreaArr = mappingPosArr[rowIndex]
-            // console.log('targetAreaArr', targetAreaArr);
             return false
           } else {
             return true
