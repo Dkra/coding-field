@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import becomeBetter from './components/become-better'
-
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      // rotateAngle: 0,
-    }
-    console.log('**********************************************************');
+    console.log('****************************************************');
     becomeBetter()
-    console.log('**********************************************************');
+    console.log('****************************************************');
   }
 
   render() {
-
     return (
-      <div></div>
+      <div>
+
+      </div>
     )
   }
 }
