@@ -42,8 +42,8 @@ module.exports = {
         include: /node_modules/,
       },
       {
-        test: /\.js?$/,
-        loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react'],
+        test: /\.jsx?$/,
+        loaders: ['babel-loader'],
         exclude: /node_modules/,
       },
     ]
