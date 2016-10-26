@@ -8,7 +8,9 @@ module.exports = {
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './app/App.js',
   ],
-
+  node: {
+    fs: "empty"
+  },
   output: {
     path: '/dist',
     // production usage
